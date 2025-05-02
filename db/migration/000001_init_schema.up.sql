@@ -17,7 +17,7 @@ CREATE TABLE "user_categories" (
 CREATE TABLE "issues" (
   "id" bigserial PRIMARY KEY,
   "volume" int NOT NULL,
-  "number" int NOT NULL,
+  "issue_number" int NOT NULL,
   "publish_date" date NOT NULL
 );
 
@@ -26,8 +26,8 @@ CREATE TABLE "articles" (
   "title" text NOT NULL,
   "abstract" text NOT NULL,
   "file_path" text NOT NULL,
-  "subject" varchar NOT NULL,
-  "status" varchar NOT NULL DEFAULT 'submitted',
+  "article_subject" varchar NOT NULL,
+  "submission_status" varchar NOT NULL DEFAULT 'submitted',
   "author_id" int NOT NULL,
   "issue_id" int,
   "created_at" timestamp NOT NULL DEFAULT (now())

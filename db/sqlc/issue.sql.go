@@ -12,32 +12,32 @@ import (
 
 const createIssue = `-- name: CreateIssue :one
 INSERT INTO issues (
-  volume, number, publish_date
+  volume, issue_number, publish_date
 ) VALUES (
   $1, $2, $3
-) RETURNING id, volume, number, publish_date
+) RETURNING id, volume, issue_number, publish_date
 `
 
 type CreateIssueParams struct {
 	Volume      int32     `json:"volume"`
-	Number      int32     `json:"number"`
+	IssueNumber int32     `json:"issue_number"`
 	PublishDate time.Time `json:"publish_date"`
 }
 
 func (q *Queries) CreateIssue(ctx context.Context, arg CreateIssueParams) (Issue, error) {
-	row := q.db.QueryRowContext(ctx, createIssue, arg.Volume, arg.Number, arg.PublishDate)
+	row := q.db.QueryRowContext(ctx, createIssue, arg.Volume, arg.IssueNumber, arg.PublishDate)
 	var i Issue
 	err := row.Scan(
 		&i.ID,
 		&i.Volume,
-		&i.Number,
+		&i.IssueNumber,
 		&i.PublishDate,
 	)
 	return i, err
 }
 
 const getIssueByID = `-- name: GetIssueByID :one
-SELECT id, volume, number, publish_date FROM issues WHERE id = $1
+SELECT id, volume, issue_number, publish_date FROM issues WHERE id = $1
 `
 
 func (q *Queries) GetIssueByID(ctx context.Context, id int64) (Issue, error) {
@@ -46,14 +46,14 @@ func (q *Queries) GetIssueByID(ctx context.Context, id int64) (Issue, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Volume,
-		&i.Number,
+		&i.IssueNumber,
 		&i.PublishDate,
 	)
 	return i, err
 }
 
 const getLatestIssue = `-- name: GetLatestIssue :one
-SELECT id, volume, number, publish_date FROM issues ORDER BY publish_date DESC LIMIT 1
+SELECT id, volume, issue_number, publish_date FROM issues ORDER BY publish_date DESC LIMIT 1
 `
 
 func (q *Queries) GetLatestIssue(ctx context.Context) (Issue, error) {
@@ -62,14 +62,14 @@ func (q *Queries) GetLatestIssue(ctx context.Context) (Issue, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Volume,
-		&i.Number,
+		&i.IssueNumber,
 		&i.PublishDate,
 	)
 	return i, err
 }
 
 const listIssues = `-- name: ListIssues :many
-SELECT id, volume, number, publish_date FROM issues ORDER BY publish_date DESC
+SELECT id, volume, issue_number, publish_date FROM issues ORDER BY publish_date DESC
 `
 
 func (q *Queries) ListIssues(ctx context.Context) ([]Issue, error) {
@@ -84,7 +84,7 @@ func (q *Queries) ListIssues(ctx context.Context) ([]Issue, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Volume,
-			&i.Number,
+			&i.IssueNumber,
 			&i.PublishDate,
 		); err != nil {
 			return nil, err

@@ -10,21 +10,21 @@ import (
 )
 
 type Article struct {
-	ID        int32         `json:"id"`
-	Title     string        `json:"title"`
-	Abstract  string        `json:"abstract"`
-	FilePath  string        `json:"file_path"`
-	Subject   string        `json:"subject"`
-	Status    string        `json:"status"`
-	AuthorID  int32         `json:"author_id"`
-	IssueID   sql.NullInt32 `json:"issue_id"`
-	CreatedAt time.Time     `json:"created_at"`
+	ID               int32         `json:"id"`
+	Title            string        `json:"title"`
+	Abstract         string        `json:"abstract"`
+	FilePath         string        `json:"file_path"`
+	ArticleSubject   string        `json:"article_subject"`
+	SubmissionStatus string        `json:"submission_status"`
+	AuthorID         int32         `json:"author_id"`
+	IssueID          sql.NullInt32 `json:"issue_id"`
+	CreatedAt        time.Time     `json:"created_at"`
 }
 
 type Issue struct {
 	ID          int64     `json:"id"`
 	Volume      int32     `json:"volume"`
-	Number      int32     `json:"number"`
+	IssueNumber int32     `json:"issue_number"`
 	PublishDate time.Time `json:"publish_date"`
 }
 

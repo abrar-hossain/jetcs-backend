@@ -1,6 +1,6 @@
 -- name: CreateIssue :one
 INSERT INTO issues (
-  volume, number, publish_date
+  volume, issue_number, publish_date
 ) VALUES (
   $1, $2, $3
 ) RETURNING *;

@@ -1,11 +1,12 @@
 -- name: CreateArticle :one
 INSERT INTO articles (
-  title, abstract, file_path, subject,
-  status, author_id, issue_id, created_at
+  title, abstract, file_path, article_subject,
+  submission_status, author_id, issue_id, created_at
 ) VALUES (
   $1, $2, $3, $4,
   $5, $6, $7, $8
 ) RETURNING *;
+
 
 -- name: GetArticleByID :one
 SELECT * FROM articles WHERE id = $1;
