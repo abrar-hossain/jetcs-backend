@@ -1,0 +1,24 @@
+# Final Summary (What Does This sqlc.yml Do?)
+# ✅ Reads SQL queries from ./db/query/
+# ✅ Reads database schema from ./db/migration/
+# ✅ Generates Go code inside ./db/sqlc
+# ✅ Uses PostgreSQL as the database
+# ✅ Adds JSON tags to structs
+# ✅ Avoids using prepared queries
+# ✅ Doesn’t generate Go interfaces
+# ✅ Keeps table names exactly as they are
+
+
+
+version: "1"
+packages:
+  - name: "db"
+    path: "./db/sqlc"
+    queries: "./db/query/"
+    schema: "./db/migration/"
+    engine: "postgresql"
+    emit_json_tags: true
+    emit_prepared_queries: false
+    emit_interface: false
+    emit_exact_table_names: false
+    
